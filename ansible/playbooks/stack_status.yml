@@ -1,0 +1,6 @@
+---
+  - hosts: loadbalancer
+    become: true
+    tasks:
+      - name: verify nginx service
+        command: service nginx status

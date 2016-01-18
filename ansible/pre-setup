@@ -1,0 +1,17 @@
+#!/bin/bash -x
+mkdir -p ~/work
+sudo apt-get install -y software-properties-common
+sudo apt-add-repository -y ppa:ansible/ansible
+sudo apt-get install -y python-pip python-dev build-essential
+sudo pip install --upgrade pip
+sudo apt-get update
+sudo pip install ansible
+#sudo apt-get install -y ansible
+sudo apt-get install -y nano
+
+ln -s /usr/local/bin/ansible ansible
+ln -s /usr/local/bin/ansible-playbook ansible-playbook
+
+echo "alias ll='ls -ltr'" >> ~/.bash_profile
+echo "alias a='ansible'" >> ~/.bash_profile
+echo "alias ap='ansible-playbook'" >> ~/.bash_profile

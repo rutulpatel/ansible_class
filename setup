@@ -1,0 +1,26 @@
+#!/bin/bash -x
+
+#forcefull recycling of docker containers and machine
+docker-compose kill
+docker-machine stop dev
+echo "starting docker machine"
+docker-machine start dev
+eval "$(docker-machine env dev)"
+
+#cd'ing to home directory
+cd ~/Workspace/ansible_class/project #home directory where zip folder is installed
+
+#setting variables
+home_dir="$PWD"
+devip=$(docker-machine ip dev)
+
+#this is to setup docker env
+cd $home_dir/env
+echo "generating ssh keys"
+yes | ssh-keygen -t rsa -f ansible -q -N ""
+echo "building and starting containers"
+docker-compose build && docker-compose up -d
+sleep 5
+ssh -t -i $home_dir/env/ansible ansible@$devip -p 2200 $home_dir/ansible/pre-setup
+sudo scp -r -i $home_dir/env/ansible -P 2200 $home_dir/ansible/* ansible@$devip:~/work/
+echo "DEV IP address is "$devip

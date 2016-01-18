@@ -1,0 +1,8 @@
+#cd'ing to home directory
+cd ~/Workspace/ansible_class/project #home directory where zip folder is installed
+
+#setting variables
+home_dir="$PWD"
+devip=$(docker-machine ip dev)
+
+sudo scp -r -i $home_dir/env/ansible -P 2200 $home_dir/ansible/* ansible@$devip:~/work/
