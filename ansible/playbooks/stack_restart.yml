@@ -1,12 +1,14 @@
 ---
   # Bring stack down
   - hosts: loadbalancer
+    gather_facts: false
     become: true
     tasks:
       - service: name=nginx state=stopped
       - wait_for: port=80 state=drained
 
   - hosts: webserver
+    gather_facts: false
     become: true
     tasks:
       - service: name=apache2 state=stopped
@@ -21,12 +23,14 @@
 
   # Bring stack up
   - hosts: webserver
+    gather_facts: false
     become: true
     tasks:
       - service: name=apache2 state=started
       - wait_for: port=80
 
   - hosts: loadbalancer
+    gather_facts: false
     become: true
     tasks:
       - service: name=nginx state=started
