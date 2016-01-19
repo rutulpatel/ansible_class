@@ -15,3 +15,4 @@ ln -s /usr/local/bin/ansible-playbook ansible-playbook
 echo "alias ll='ls -ltr'" >> ~/.bash_profile
 echo "alias a='ansible'" >> ~/.bash_profile
 echo "alias ap='ansible-playbook'" >> ~/.bash_profile
+echo "alias ag='ansible-galaxy'" >> ~/.bash_profile
